@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "The Child Lost Agency"
+version = "1.0.0"
+id = "artifacts/cla-portal"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22269
+
+[services.development]
+run = "pnpm --filter @workspace/cla-portal run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cla-portal", "run", "build" ]
+publicDir = "artifacts/cla-portal/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22269"
+BASE_PATH = "/"
